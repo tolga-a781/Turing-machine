@@ -1,4 +1,4 @@
 package bg.tu_varna.turing_machine.models;
 
-public class MachineManager {
+public class MachineManager { 
 }
