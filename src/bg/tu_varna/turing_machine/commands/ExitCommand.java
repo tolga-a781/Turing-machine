@@ -6,10 +6,11 @@ public class ExitCommand implements Command {
     private String message;
 
     @Override
-    public void execute() {
+    public String execute() {
         this.message = "Exiting the app, goodbye!";
         System.exit(0);
 
+        return null;
     }
 
     public String getMessage() {
