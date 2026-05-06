@@ -1,11 +1,17 @@
 package bg.tu_varna.turing_machine.models;
 
+
+import bg.tu_varna.turing_machine.enums.Direction;
+
 public class DirectionChecker {
-    public Direction checkDirection(String direction) throws Exception{
-        if(direction.toUpperCase().equals("L") || direction.toUpperCase().equals("R") || direction.toUpperCase().equals("S")){
-            return Direction.valueOf(direction.toUpperCase());
-        } else {
-            throw new Exception("Invalid direction: " + direction);
+    public static Direction parse(String text) {
+        if (text == null) {
+            throw new IllegalArgumentException("Direction cannot be null");
         }
+        String upper = text.toUpperCase();
+        if (upper.equals("L")) return Direction.L;
+        if (upper.equals("R")) return Direction.R;
+        if (upper.equals("S")) return Direction.S;
+        throw new IllegalArgumentException("Invalid direction: " + text);
     }
 }
