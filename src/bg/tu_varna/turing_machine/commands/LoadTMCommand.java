@@ -1,26 +1,20 @@
-
 package bg.tu_varna.turing_machine.commands;
 import bg.tu_varna.turing_machine.interfaces.Command;
 import bg.tu_varna.turing_machine.models.TuringMachine;
 import bg.tu_varna.turing_machine.services.MachineFile;
 import bg.tu_varna.turing_machine.services.MachineRegistry;
-public class OpenCommand implements Command {
+public class LoadTMCommand implements Command {
     private MachineRegistry registry;
     private MachineFile fileIO;
-    public OpenCommand(MachineRegistry r, MachineFile f) {
-        this.registry = r; this.fileIO = f;
-    }
+    public LoadTMCommand(MachineRegistry r, MachineFile f) { this.registry = r; this.fileIO = f; }
     @Override public String execute(String[] args) {
         if (args.length < 1) {
-            return "Usage: open <file>";
+            return "Usage: loadTM <file>";
         }
         try {
             TuringMachine m = fileIO.load(args[0], registry.nextId());
             registry.register(m);
-            registry.setCurrentFile(args[0], m.getId());
-            return "Successfully opened " + args[0] + " (machine ID " + m.getId() + ")";
-        } catch (Exception e) {
-            return "Error opening file: " + e.getMessage();
-        }
+            return "Loaded machine from " + args[0] + " (ID " + m.getId() + ")";
+        } catch (Exception e) { return "Error: " + e.getMessage(); }
     }
 }
