@@ -3,79 +3,83 @@ package bg.tu_varna.turing_machine.models;
 import java.util.Objects;
 
 public class State {
-    private String name;
-    private boolean acceptingState;
-    private boolean rejectingState;
-    private boolean startingState;
+    private final String name;
+    private boolean starting;
+    private boolean accepting;
+    private boolean rejecting;
 
     public State(String name) {
-        this.name = name;
-        this.startingState = false;
-        this.acceptingState = false;
-        this.rejectingState = false;
+        this.name = Objects.requireNonNull(name);
     }
 
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public boolean isStarting() {
+        return starting;
+    }
+    public boolean isAccepting() {
+        return accepting;
+    }
+    public boolean isRejecting() {
+        return rejecting;
+    }
+    public boolean isHalting() {
+        return accepting || rejecting;
     }
 
-    public void setAcceptingState(boolean acceptingState) {
-        this.acceptingState = acceptingState;
-        if(acceptingState) {
-            this.rejectingState = false;
-        }
+    public void setStarting(boolean starting) {
+        this.starting = starting;
     }
 
-    public void setRejectingState(boolean rejectingState) {
-        this.rejectingState = rejectingState;
-        if(rejectingState) {
-            this.startingState = false;
-        }
+    public void setAccepting(boolean accepting) {
+        this.accepting = accepting;
+        if (accepting) this.rejecting = false;
     }
 
-    public void setStartingState(boolean startingState) {
-        this.startingState = startingState;
-    }
-    public boolean isAcceptingState() {
-        return acceptingState;
-    }
-    public boolean isRejectingState() {
-        return rejectingState;
-    }
-    public boolean isStartingState() {
-        return startingState;
-    }
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(name).append(" ");
-        if(startingState == true){
-            sb.append("Starting State \n");
-        }
-        if(acceptingState == true){
-            sb.append("Accepting State \n");
-        }
-        if(rejectingState == true){
-            sb.append("Rejecting State \n");
-        }
-        return sb.toString();
+    public void setRejecting(boolean rejecting) {
+        this.rejecting = rejecting;
+        if (rejecting) this.accepting = false;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof State state)) return false;
-        return Objects.equals(name, state.name);
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        State other = (State) o;
+        return name.equals(other.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name);
+        return name.hashCode();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(name);
+        if (starting || accepting || rejecting) {
+            sb.append(" [");
+            boolean first = true;
+            if (starting)  {
+                sb.append("start");
+                first = false;
+            }
+            if (accepting) {
+                if (!first) {
+                    sb.append(",");
+                }
+                sb.append("accept"); first = false;
+            }
+            if (rejecting) {
+                if (!first){
+                    sb.append(",");
+                }
+                sb.append("reject");
+            }
+            sb.append("]");
+        }
+        return sb.toString();
+    }
 }
-
-

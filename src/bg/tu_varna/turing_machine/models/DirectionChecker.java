@@ -9,9 +9,15 @@ public class DirectionChecker {
             throw new IllegalArgumentException("Direction cannot be null");
         }
         String upper = text.toUpperCase();
-        if (upper.equals("L")) return Direction.L;
-        if (upper.equals("R")) return Direction.R;
-        if (upper.equals("S")) return Direction.S;
+        if (upper.equals("L")) {
+            return Direction.L;
+        }
+        if (upper.equals("R")) {
+            return Direction.R;
+        }
+        if (upper.equals("S")) {
+            return Direction.S;
+        }
         throw new IllegalArgumentException("Invalid direction: " + text);
     }
 }

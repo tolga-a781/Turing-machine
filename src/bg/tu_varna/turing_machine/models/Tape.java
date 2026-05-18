@@ -1,20 +1,24 @@
 package bg.tu_varna.turing_machine.models;
 
+import bg.tu_varna.turing_machine.enums.Direction;
+
 import java.util.TreeMap;
 
 public class Tape {
-    public static final char BLANK = '_';
     private final TreeMap<Integer, Character> cells = new TreeMap<>();
     private int head = 0;
-    private final String originalInput;
+    private String originalInput;
+
     public Tape(String input) {
         if (input == null) {
             this.originalInput = "";
-        } else {
+        }
+        else{
             this.originalInput = input;
         }
         loadInput();
     }
+
     private void loadInput() {
         cells.clear();
         head = 0;
@@ -22,16 +26,20 @@ public class Tape {
             cells.put(i, originalInput.charAt(i));
         }
     }
+
     public char read() {
-        return cells.getOrDefault(head, BLANK);
+        return cells.getOrDefault(head, Alphabet.BLANK);
     }
+
     public void write(char symbol) {
-        if (symbol == BLANK) {
+        if (symbol == Alphabet.BLANK) {
             cells.remove(head);
-        } else {
+        }
+        else{
             cells.put(head, symbol);
         }
     }
+
     public void move(Direction d) {
         switch (d) {
             case L -> head--;
@@ -39,31 +47,33 @@ public class Tape {
             case S -> { }
         }
     }
+
     public int getHead() {
         return head;
     }
+
     public int leftmost() {
-        if (cells.isEmpty()) {
+        if (cells.isEmpty()){
             return head;
-        } else {
-            return Math.min(head, cells.firstKey());
         }
+        return Math.min(head, cells.firstKey());
     }
+
     public int rightmost() {
         if (cells.isEmpty()) {
             return head;
-        } else {
-            return Math.max(head, cells.lastKey());
         }
+        return Math.max(head, cells.lastKey());
     }
+
     public String snapshot(int from, int to) {
         StringBuilder sb = new StringBuilder();
-        for (int i = from; i <= to; i++) {
-            sb.append(cells.getOrDefault(i, BLANK));
+        for (int i = from; i <= to; i++){
+            sb.append(cells.getOrDefault(i, Alphabet.BLANK));
         }
         return sb.toString();
     }
+
     public void reset() {
-        loadInput();
-    }
+        loadInput(); }
 }

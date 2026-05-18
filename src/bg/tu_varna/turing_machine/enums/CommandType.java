@@ -32,18 +32,24 @@ public enum CommandType {
     private String key;
 
     CommandType(String key) {
+
         this.key = key;
     }
 
     public String getKey() {
+
         return key;
     }
 
     public static CommandType fromString(String key) {
-        if (key == null) return null;
+        if (key == null){
+            return null;
+        }
         String lower = key.toLowerCase();
         for (CommandType type : values()) {
-            if (type.key.equals(lower)) return type;
+            if (type.key.equals(lower)){
+                return type;
+            }
         }
         return null;
     }
