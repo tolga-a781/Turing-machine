@@ -10,9 +10,13 @@ import java.util.Objects;
  * The toString method appends role labels such as "[start,accept]" after the name.
  */
 public class State {
+    /** The unique label identifying this state, e.g. "q0". */
     private final String name;
+    /** True if this is the state the machine starts in. */
     private boolean starting;
+    /** True if entering this state causes the machine to accept. */
     private boolean accepting;
+    /** True if entering this state causes the machine to reject. */
     private boolean rejecting;
 
     /** Creates a state with the given name. Throws if the name is null. */

@@ -11,10 +11,15 @@ import java.util.*;
  * isDeterministic checks that no two transitions share the same source state and read symbol.
  */
 public class TuringMachine {
+    /** Numeric identifier, unique within a registry session. */
     private int id;
+    /** Human-readable name shown in list and report output. */
     private String name;
+    /** All states in insertion order, keyed by name. */
     private final Map<String, State> states = new LinkedHashMap<>();
+    /** The designated start state, or null if none has been set. */
     private State startState;
+    /** All transition rules in the order they were added. */
     private final List<Transition> transitions = new ArrayList<>();
 
     /**

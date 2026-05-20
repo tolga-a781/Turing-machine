@@ -11,10 +11,15 @@ import java.util.Objects;
  * toString produces standard delta-notation, e.g. delta(q0, 1) = (q1, 0, R).
  */
 public class Transition {
+    /** The state the machine must be in for this rule to apply. */
     private  State from;
+    /** The tape symbol that must be under the head for this rule to apply. */
     private  char read;
+    /** The state the machine moves into after applying this rule. */
     private  State to;
+    /** The symbol written to the tape before the head moves. */
     private  char write;
+    /** The direction the head moves after writing. */
     private  Direction direction;
 
     /**

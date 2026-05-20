@@ -12,10 +12,15 @@ import java.util.*;
  * Each machine has exactly one TuringMachineRunner stored separately from its definition.
  */
 public class MachineRegistry {
+    /** All registered machines keyed by their ID. */
     private final Map<Integer, TuringMachine> machines = new LinkedHashMap<>();
+    /** One runner per machine, keyed by the same ID. */
     private final Map<Integer, TuringMachineRunner> executions = new HashMap<>();
+    /** The ID that will be assigned to the next newly created machine. */
     private int nextId = 1;
+    /** File path of the machine currently open via the open command, or null. */
     private String currentFilePath;
+    /** ID of the machine that was loaded from the currently open file, or null. */
     private Integer currentFileMachineId;
 
     /**

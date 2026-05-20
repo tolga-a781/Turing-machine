@@ -11,7 +11,7 @@ public class TraceCommand extends AbstractCommand {
     public TraceCommand(MachineRegistry r) {
         super(r);
     }
-    /** Re-initialises on the word and prints up to k numbered configuration snapshots. */
+    /** Reinitializes on the word and prints up to k numbered configuration snapshots. */
     @Override public String execute(String[] args) {
         if (args.length < 3){
             return "Usage: trace <id> <word> <k> [max=<n>]";

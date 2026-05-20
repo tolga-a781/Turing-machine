@@ -12,8 +12,11 @@ import java.util.TreeMap;
  * The reset method restores the original input and moves the head back to position 0.
  */
 public class Tape {
+    /** Stores only the non-blank cells; absent positions read as blank. */
     private final TreeMap<Integer, Character> cells = new TreeMap<>();
+    /** Current head position; can be negative or positive. */
     private int head = 0;
+    /** The input string loaded at construction time, used by reset. */
     private String originalInput;
 
     /**

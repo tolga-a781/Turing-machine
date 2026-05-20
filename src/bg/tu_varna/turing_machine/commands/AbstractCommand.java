@@ -9,6 +9,7 @@ import bg.tu_varna.turing_machine.services.MachineRegistry;
  * or null when a file is open and the command may proceed.
  */
 public abstract class AbstractCommand implements Command {
+    /** The shared registry all commands use to look up machines and runners. */
     private MachineRegistry registry;
 
     /** Returns the shared registry used by all commands. */

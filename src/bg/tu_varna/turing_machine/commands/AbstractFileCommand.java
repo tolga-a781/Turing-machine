@@ -9,6 +9,7 @@ import bg.tu_varna.turing_machine.services.MachineRegistry;
  * and writing .txt machine definition files.
  */
 public abstract class AbstractFileCommand extends AbstractCommand {
+    /** The file service used to read and write .txt machine definition files. */
     public MachineFile machineFile;
 
     public AbstractFileCommand(MachineRegistry registry, MachineFile machineFile) {

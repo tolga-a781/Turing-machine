@@ -14,12 +14,19 @@ import java.util.List;
  * reset restores the tape and start state without needing a new init call.
  */
 public class TuringMachineRunner {
+    /** The machine definition this runner executes. */
     private final TuringMachine machine;
+    /** The tape for the current execution; null until init is called. */
     private Tape tape;
+    /** The state the machine is currently in. */
     private State currentState;
+    /** Number of transitions applied since the last init or reset. */
     private int steps;
+    /** True once the machine has entered a halting condition. */
     private boolean halted;
+    /** True if the machine halted by entering an accepting state. */
     private boolean accepted;
+    /** Human-readable explanation of why the machine stopped. */
     private String haltReason;
 
     /** Creates a runner for the given machine. init must be called before execution can start. */
