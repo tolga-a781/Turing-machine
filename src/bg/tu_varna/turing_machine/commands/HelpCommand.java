@@ -1,6 +1,12 @@
 package bg.tu_varna.turing_machine.commands;
 import bg.tu_varna.turing_machine.interfaces.Command;
+
+/**
+ * Prints a list of all available commands with their syntax.
+ * Usage: help
+ */
 public class HelpCommand implements Command {
+    /** Returns the full command reference as a formatted multi-line string. */
     @Override public String execute(String[] args) {
         return """
                 The following commands are supported:

@@ -11,9 +11,17 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Receives a raw text line from the user, splits it into tokens, and calls the matching command.
+ * All 27 commands are stored in an EnumMap for fast O(1) lookup.
+ * Quoted file paths (e.g. "my file.txt") are kept together by the tokenizer.
+ * The two-word form "save as file.txt" is detected separately and routed to SaveAsCommand.
+ * Any exception thrown by a command is caught and returned as an error message.
+ */
 public class CommandDispatcher {
     private Map<CommandType, Command> commands = new EnumMap<>(CommandType.class);
 
+    /** Builds the command map by wiring every CommandType to its implementation. */
     public CommandDispatcher(MachineRegistry registry, MachineFile fileIO) {
         commands.put(CommandType.OPEN,new OpenCommand(registry, fileIO));
         commands.put(CommandType.CLOSE,new CloseCommand(registry));
@@ -44,6 +52,7 @@ public class CommandDispatcher {
         commands.put(CommandType.REPORT,new ReportCommand(registry));
     }
 
+    /** Parses the input line, finds the matching command, and returns its output. Returns an empty string for blank input. */
     public String dispatch(String line) {
         if (line == null) {
             return "";
@@ -72,6 +81,7 @@ public class CommandDispatcher {
         return safeExecute(cmd, args);
     }
 
+    /** Calls the command and catches any exception, returning it as an "Error: ..." message. */
     private String safeExecute(Command cmd, String[] args) {
         try {
             return cmd.execute(args);
@@ -80,6 +90,7 @@ public class CommandDispatcher {
         }
     }
 
+    /** Splits a line into tokens on spaces, treating text inside double quotes as a single token. */
     private String[] tokenize(String line) {
         List<String> tokens = new ArrayList<>();
         StringBuilder current = new StringBuilder();

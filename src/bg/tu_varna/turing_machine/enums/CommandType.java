@@ -1,5 +1,11 @@
 package bg.tu_varna.turing_machine.enums;
 
+/**
+ * Lists every command keyword recognised by the application.
+ * Each constant holds the lowercase string the user must type.
+ * The fromString method does a case-insensitive search and returns
+ * the matching constant, or null if nothing matches.
+ */
 public enum CommandType {
     OPEN("open"),
     CLOSE("close"),
@@ -36,11 +42,13 @@ public enum CommandType {
         this.key = key;
     }
 
+    /** Returns the lowercase keyword string the user must type to invoke this command. */
     public String getKey() {
 
         return key;
     }
 
+    /** Finds a CommandType by its keyword string, ignoring case. Returns null if not found. */
     public static CommandType fromString(String key) {
         if (key == null){
             return null;

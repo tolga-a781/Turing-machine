@@ -12,8 +12,20 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Reads and writes Turing Machine definitions stored in plain .txt files.
+ * A file may contain one NAME line, any number of STATE lines, and any number of TRANS lines.
+ * Loading is done in two passes: first STATE lines are read so all states exist,
+ * then TRANS lines are read and any missing states are created automatically.
+ * If the NAME line is absent, the machine name is taken from the file name without its extension.
+ */
 public class MachineFile {
 
+    /**
+     * Reads a .txt file and builds a TuringMachine from it.
+     * @param path the path to the .txt file.
+     * @param newId the ID to assign to the loaded machine.
+     */
     public TuringMachine load(String path, int newId) throws IOException {
         List<String> lines = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(path));
@@ -76,6 +88,11 @@ public class MachineFile {
         return machine;
     }
 
+    /**
+     * Writes a machine definition to a .txt file, overwriting any existing content.
+     * @param m the machine to save.
+     * @param path the destination file path.
+     */
     public void save(TuringMachine m, String path) throws IOException {
         PrintWriter out = new PrintWriter(new FileWriter(path));
 
@@ -104,6 +121,7 @@ public class MachineFile {
         out.close();
     }
 
+    /** Extracts the machine name from a file path by stripping the directory and extension. */
     private String nameFromPath(String path) {
         String name = new File(path).getName();
         int dot = name.lastIndexOf('.');
