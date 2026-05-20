@@ -12,7 +12,9 @@ import java.util.Scanner;
  * Exits when the user types "exit" or when input ends.
  */
 public class Application {
+
     /** Creates all dependencies and runs the REPL until the user exits. */
+
     public static void main(String[] args) {
         MachineRegistry registry = new MachineRegistry();
         MachineFile fileIO = new MachineFile();
